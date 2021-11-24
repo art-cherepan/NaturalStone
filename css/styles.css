@@ -1,0 +1,119 @@
+h1 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.body-color {
+    background: radial-gradient(at left, #FEFFFF, #A7CECC);
+}
+
+header {
+    overflow: hidden;
+    background: #fff0f5;
+    top: 0;
+    width: 100%;
+}
+
+section {
+    padding-bottom: 90px;
+}
+
+header a {
+    float: right;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    margin-right: 0px;
+    font-size: 18px;
+    padding: 14px 16px;
+}
+
+header a:hover {
+    background: #A7CECC;
+    color: black;
+}
+
+.header-username-style {
+    padding: 14px 16px;
+    color: black;
+    text-align: left;
+    font-size: 18px;
+}
+
+.wrapper {
+    position: relative;
+    min-height: 100%;
+}
+
+.img-offset {
+    margin-top: 40px;
+}
+
+.comment-nav {
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.product-header-name {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.product-header-price {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.msg {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("/NaturalStone/media/left-arrow.svg");
+}
+
+.carousel-control-next-icon {
+    background-image: url("/NaturalStone/media/right-arrow.svg");
+}
+
+.carousel-control-next, .carousel-control-prev {
+    width: 20px;
+}
+
+.carousel-control-next {
+    right: -35px;
+}
+
+.carousel-control-prev {
+    left: -35px;
+}
+
+.card-header {
+    text-align: center;
+}
+
+
+/*footer {*/
+/*    position: fixed;*/
+/*    background-color: #333;*/
+/*    color: whitesmoke;*/
+/*    width: 100%;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*}*/
+
+footer {
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer img {
+    margin-top: 14px;
+    margin-bottom: 16px;
+}
