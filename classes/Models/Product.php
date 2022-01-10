@@ -92,4 +92,34 @@ class Product
         $delete = 'DELETE FROM products WHERE id = ' . $this->id;
         return $this->DB->execute($delete);
     }
+
+    public static function getProducts()
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getProducts = 'SELECT * FROM products';
+        $queryProducts = $DB->query($getProducts, []);
+        $products = [];
+        if (false !== $queryProducts) {
+            foreach ($queryProducts as $queryProduct) {
+                $product = new Product($queryProduct['id'], $queryProduct['name'],
+                    $queryProduct['price'], $queryProduct['description'],
+                    $queryProduct['path']);
+                $products[] = $product;
+            }
+        } else {
+            die;
+        }
+        return $products;
+    }
+
+    public static function getProduct($id)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getProduct = 'SELECT * FROM products WHERE id=:id;';
+        $queryProduct = $DB->query($getProduct, [':id' => $id]);
+        if (false !== $queryProduct) {
+            return new Product($queryProduct[0]['id'], $queryProduct[0]['name'], $queryProduct[0]['price'], $queryProduct[0]['description'], $queryProduct[0]['path']);
+        }
+        return false;
+    }
 }

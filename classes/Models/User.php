@@ -156,4 +156,87 @@ class User
         $delete = 'DELETE FROM users WHERE id = ' . $this->id;
         return $this->DB->execute($delete);
     }
+
+    public static function getUsers()
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getUsers = 'SELECT * FROM users';
+        $queryUsers = $DB->query($getUsers, []);
+        $users = [];
+        if (false !== $queryUsers) {
+            foreach ($queryUsers as $queryUser) {
+                $user = new User($queryUser['id'], $queryUser['userName'],
+                    $queryUser['passwordHash'], $queryUser['firstName'],
+                    $queryUser['secondName'], $queryUser['patronymic'], $queryUser['email'], $queryUser['phone'], $queryUser['amountOfPurchases']);
+                $users[] = $user;
+            }
+        } else {
+            die;
+        }
+        return $users;
+    }
+
+    public static function getUser($id)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getUser = 'SELECT * FROM users WHERE id=:id;';
+        $queryUser = $DB->query($getUser, [':id' => $id]);
+        if (false !== $queryUser) {
+            return new User($queryUser[0]['id'], $queryUser[0]['userName'], $queryUser[0]['passwordHash'], $queryUser[0]['firstName'], $queryUser[0]['secondName'], $queryUser[0]['patronymic'], $queryUser[0]['email'], $queryUser[0]['phone'], $queryUser[0]['amountOfPurchases']);
+        }
+        return false;
+    }
+
+    public static function getIdByUserName($userName)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getId = 'SELECT id FROM users WHERE userName=:userName;';
+        $queryId = $DB->query($getId, [':userName' => $userName]);
+        if ($queryId !== false) {
+            return $queryId[0]['id'];
+        }
+        return false;
+    }
+
+    public static function checkUserName($userName)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getUserName = 'SELECT * FROM users WHERE userName=:userName;';
+        $queryUserName = $DB->query($getUserName, [':userName' => $userName]);
+        if ($queryUserName !== false) {
+            if (count($queryUserName) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function checkPhone($phone)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getUserPhone = 'SELECT * FROM users WHERE phone=:phone;';
+        $queryUserPhone = $DB->query($getUserPhone, [':phone' => $phone]);
+        if ($queryUserPhone !== false) {
+            if (count($queryUserPhone) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function checkPassword($userName, $password)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getPasswordHash = 'SELECT passwordHash FROM users WHERE userName=:userName';
+        $queryPasswordHash = $DB->query($getPasswordHash, [':userName' => $userName]);
+        if ($queryPasswordHash !== false) {
+            if (password_verify($password, $queryPasswordHash[0]['passwordHash'])) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

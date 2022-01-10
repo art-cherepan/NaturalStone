@@ -9,9 +9,7 @@ if (!isset($_SESSION)) {
 require_once __DIR__ . '/../classes/Models/Order.php';
 require_once __DIR__ . '/../classes/Models/OrderProduct.php';
 require_once __DIR__ . '/../classes/Models/OrderService.php';
-require_once __DIR__ . '/../classes/Models/Users.php';
 require_once __DIR__ . '/../classes/Models/Product.php';
-require_once __DIR__ . '/../classes/Models/Products.php';
 require_once __DIR__ . '/../classes/MailSender.php';
 
 $servicesId = [];
@@ -80,7 +78,7 @@ if (isset($_SESSION['unregisteredUser'])) {
             $message = 'Пользователь: ' . $_POST['firstName'] . ' ' . $_POST['secondName'] . ' ' . $_POST['patronymic'] . "\nтелефон: " . $_POST['phone'] . "\nпредпочитаемый способ связи: " . $communicationMethod;
 
             if (!empty($_SESSION['products'])) {
-                $products = new Products();
+                $products = Product::getProducts();
             	$message .= "\nЗаказанные товары: ";
                 foreach ($_SESSION['products'] as $key => $value) {
 					$product = $products->getProduct($key);
@@ -121,8 +119,7 @@ if (isset($_SESSION['unregisteredUser'])) {
         }
     } elseif (false == $_SESSION['unregisteredUser']) {
         if (count($servicesId) > 0 || !empty($_SESSION['products'])) {
-            $users = new Users();
-            $userId = $users->getIdByUserName($_SESSION['userName']);
+            $userId = User::getIdByUserName($_SESSION['userName']);
             $order = new Order('', $userId, date("Y-m-d H:i:s"), $_SESSION['totalPrice']);
             $flag = true;
             if (true == $order->insert()) {

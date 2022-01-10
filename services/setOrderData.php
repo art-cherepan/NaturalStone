@@ -7,9 +7,7 @@ if (!isset($_SESSION)) {
 }
 
 require_once __DIR__ . '/../classes/View.php';
-require_once __DIR__ . '/../classes/Models/Products.php';
 require_once __DIR__ . '/../classes/Models/Product.php';
-require_once __DIR__ . '/../classes/Models/Users.php';
 require_once __DIR__ . '/../classes/Models/User.php';
 
 $products = [];
@@ -49,7 +47,7 @@ if (!empty($_POST)) {
 
 if (!empty($_SESSION['products'])) {
     if (count($_SESSION['products']) > 0) {
-        $products = new Products();
+        $products = Product::getProducts();
         foreach ($_SESSION['products'] as $key => $value) {
             $product = $products->getProduct($key);
             $totalPrice += $product->getPrice() * $value;
@@ -69,7 +67,7 @@ if (!empty($_SESSION['services'])) {
 }
 
 if (!empty($_SESSION['products'])) {
-	$products = new Products();
+	$products = Product::getProducts();
 	$viewProducts = [];
 	foreach ($_SESSION['products'] as $key => $value) {
 		$product = $products->getProduct($key);
@@ -102,9 +100,8 @@ if (empty($_SESSION['userName'])) {
     }
 } else { //если пользователь зарегался ранее
 	$_SESSION['unregisteredUser'] = false;
-    $users = new Users();
-    $id = $users->getIdByUserName($_SESSION['userName']);
-    $user = $users->getUser($id);
+    $id = User::getIdByUserName($_SESSION['userName']);
+    $user = User::getUser($id);
     if ($totalPrice > 0) {
         $user->setAmountOfPurchases($totalPrice * $user->calculateDiscount()); //в общую сумму заказов добавляется заказ со старой скидкой
         $_SESSION['totalPrice'] = $totalPrice * $user->calculateDiscount();

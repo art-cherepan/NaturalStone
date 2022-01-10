@@ -3,7 +3,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Models/Users.php';
+require_once __DIR__ . '/../classes/Models/User.php';
 require_once __DIR__ . '/../classes/DB.php';
 
 if (empty($_POST['userName'])) {
@@ -39,9 +39,8 @@ if (empty($_POST['userName'])) {
         }
     }
 } else {
-    $users = new Users();
-    if (true == $users->checkUserName($_POST['userName'])) {
-        if (true == $users->checkPassword($_POST['userName'], $_POST['password'])) {
+    if (true == User::checkUserName($_POST['userName'])) {
+        if (true == User::checkPassword($_POST['userName'], $_POST['password'])) {
             $_SESSION['userName'] = $_POST['userName'];
             $_SESSION['unregisteredUser'] = false;
             if (!empty($_GET['placeAnOrder'])) {

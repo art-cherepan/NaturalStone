@@ -12,14 +12,11 @@ if (!empty($_SESSION['userName'])) {
     <div class="msg alert alert-danger" role="alert"><p>У вас нет прав!</p><p><a href="/NaturalStone/index.php">На главную</a></p></div>;
 <?php }
 require_once __DIR__ . '/classes/View.php';
-require_once __DIR__ . '/classes/Models/Products.php';
-require_once __DIR__ . '/classes/Models/Services.php';
+require_once __DIR__ . '/classes/Models/Product.php';
+require_once __DIR__ . '/classes/Models/Service.php';
 
-$products = new Products();
-$products = $products->getProducts();
-
-$services = new Services();
-$services = $services->getServices();
+$products = Product::getProducts();
+$services = Service::getServices();
 
 if ($products !== false) {
     $view = new View();

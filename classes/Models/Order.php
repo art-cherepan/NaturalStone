@@ -97,4 +97,33 @@ class Order
     {
         return $this->DB->getLastInsertId();
     }
+
+    public static function getOrders()
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getOrders = 'SELECT * FROM orders';
+        $queryOrders = $DB->query($getOrders, []);
+        $orders = [];
+        if (false !== $queryOrders) {
+            foreach ($queryOrders as $queryOrder) {
+                $order = new Order($queryOrder['id'], $queryOrder['id_user'],
+                    $queryOrder['totalPrice'], $queryOrder['date']);
+                $orders[] = $order;
+            }
+        } else {
+            die;
+        }
+        return $orders;
+    }
+
+    public static function getOrder($id)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getOrder = 'SELECT * FROM orders WHERE id=:id;';
+        $queryOrder = $DB->query($getOrder, [':id' => $id]);
+        if (false !== $queryOrder) {
+            return new Order($queryOrder[0]['id'], $queryOrder[0]['id_user'], $queryOrder[0]['totalPrice'], $queryOrder[0]['date']);
+        }
+        return false;
+    }
 }

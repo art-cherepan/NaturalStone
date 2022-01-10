@@ -5,9 +5,6 @@ if (!isset($_SESSION)) {
 
 require_once __DIR__ . '/../classes/DB.php';
 require_once __DIR__ . '/../classes/Models/User.php';
-require_once __DIR__ . '/../classes/Models/Users.php';
-
-$users = new Users();
 
 if (empty($_POST['firstName'])) {
     if (!empty($_GET['placeAnOrder'])) {
@@ -121,7 +118,7 @@ if (empty($_POST['firstName'])) {
             </script> <?php
         }
     }
-} elseif (true == $users->checkUserName($_POST['userName'])) {
+} elseif (true == User::checkUserName($_POST['userName'])) {
     if (!empty($_GET['placeAnOrder'])) {
         if ('true' === $_GET['placeAnOrder']) {
             ?>
@@ -137,7 +134,7 @@ if (empty($_POST['firstName'])) {
             </script> <?php
         }
     }
-} elseif (true == $users->checkPhone($_POST['phone'])) {
+} elseif (true == User::checkPhone($_POST['phone'])) {
     if (!empty($_GET['placeAnOrder'])) {
         if ('true' === $_GET['placeAnOrder']) {
             ?>

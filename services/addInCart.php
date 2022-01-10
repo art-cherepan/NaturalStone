@@ -3,9 +3,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Models/Products.php';
+require_once __DIR__ . '/../classes/Models/Product.php';
 
-$products = new Products();
+$products = Product::getProducts();
 if (!empty($_GET['id'])) {
     $product = $products->getProduct($_GET['id']);
     if (empty($_SESSION['products'])) {

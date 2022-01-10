@@ -91,4 +91,33 @@ class Service
         $delete = 'DELETE FROM services WHERE id = ' . $this->id;
         return $this->DB->execute($delete);
     }
+
+    public static function getServices()
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getServices = 'SELECT * FROM services';
+        $queryServices = $DB->query($getServices, []);
+        $services = [];
+        if (false !== $queryServices) {
+            foreach ($queryServices as $queryService) {
+                $service = new Service($queryService['id'], $queryService['name'],
+                    $queryService['price'], $queryService['measure']);
+                $services[] = $service;
+            }
+        } else {
+            die;
+        }
+        return $services;
+    }
+
+    public static function getService($id)
+    {
+        $DB = new DB('localhost', 'natural_stone', 'root', 'root');
+        $getService = 'SELECT * FROM services WHERE id=:id;';
+        $queryService = $DB->query($getService, [':id' => $id]);
+        if (false !== $queryService) {
+            return new Service($queryService[0]['id'], $queryService[0]['name'], $queryService[0]['price'], $queryService[0]['measure']);
+        }
+        return false;
+    }
 }
