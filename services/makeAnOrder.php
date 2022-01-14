@@ -4,13 +4,13 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-//var_dump($_SESSION);
-//die;
-require_once __DIR__ . '/../classes/Models/Order.php';
-require_once __DIR__ . '/../classes/Models/OrderProduct.php';
-require_once __DIR__ . '/../classes/Models/OrderService.php';
-require_once __DIR__ . '/../classes/Models/Product.php';
-require_once __DIR__ . '/../classes/MailSender.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\Order as Order;
+use \App\Models\OrderProduct as OrderProduct;
+use \App\Models\OrderService as OrderService;
+use \App\Models\Product as Product;
+use \App\Models\User as User;
+use \App\MailSender as MailSender;
 
 $servicesId = [];
 $servicesName = [];
@@ -81,7 +81,7 @@ if (isset($_SESSION['unregisteredUser'])) {
                 $products = Product::getProducts();
             	$message .= "\nЗаказанные товары: ";
                 foreach ($_SESSION['products'] as $key => $value) {
-					$product = $products->getProduct($key);
+					$product = Product::getProduct($key);
                     $message .= $product->getName() . ' в количестве: ' . $value . ' , ';
                 }
                 $message = substr($message, 0, -2);

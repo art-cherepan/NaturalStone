@@ -3,8 +3,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/DB.php';
-require_once __DIR__ . '/../classes/Models/User.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\User as User;
 
 if (empty($_POST['firstName'])) {
     if (!empty($_GET['placeAnOrder'])) {

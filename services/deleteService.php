@@ -6,6 +6,9 @@ if (!isset($_SESSION)) {
 
 require_once __DIR__ . '/../classes/DB.php';
 
+require_once __DIR__ . '/../autoload.php';
+use \App\DB as DB;
+
 if (!empty($_POST['delete_service_select'])) {
     $DB = new DB('localhost', 'natural_stone', 'root', 'root');
     $deleteService = 'DELETE FROM services WHERE id = ' . $_POST['delete_service_select'];

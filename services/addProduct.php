@@ -3,8 +3,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Uploader.php';
-require_once __DIR__ . '/../classes/Models/Product.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\Product as Product;
+use \App\Uploader as Uploader;
 
 if (empty($_POST['name_product'])) {
     echo 'Укажите наименование товара';

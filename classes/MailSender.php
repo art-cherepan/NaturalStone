@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class MailSender
 {
     protected $emailAddress;

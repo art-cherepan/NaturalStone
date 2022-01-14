@@ -3,14 +3,16 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-var_dump($_SESSION);
-die;
+//var_dump($_SESSION);
+//die;
 //foreach ($_SESSION as $key => $value) {
 //    unset($_SESSION[$key]);
 //}
-require_once __DIR__ . '/classes/View.php';
-require_once __DIR__ . '/classes/Models/Product.php';
-require_once __DIR__ . '/classes/Models/Service.php';
+
+require_once __DIR__ . '/autoload.php';
+use \App\Models\Product as Product;
+use \App\Models\Service as Service;
+use \App\View as View;
 
 $products = Product::getProducts();
 $services = Service::getServices();

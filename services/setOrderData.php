@@ -6,9 +6,10 @@ if (!isset($_SESSION)) {
 //	die;
 }
 
-require_once __DIR__ . '/../classes/View.php';
-require_once __DIR__ . '/../classes/Models/Product.php';
-require_once __DIR__ . '/../classes/Models/User.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\Product as Product;
+use \App\Models\User as User;
+use \App\View as View;
 
 $products = [];
 $services = [];
@@ -49,7 +50,7 @@ if (!empty($_SESSION['products'])) {
     if (count($_SESSION['products']) > 0) {
         $products = Product::getProducts();
         foreach ($_SESSION['products'] as $key => $value) {
-            $product = $products->getProduct($key);
+            $product = Product::getProduct($key);
             $totalPrice += $product->getPrice() * $value;
         }
     }
@@ -70,7 +71,7 @@ if (!empty($_SESSION['products'])) {
 	$products = Product::getProducts();
 	$viewProducts = [];
 	foreach ($_SESSION['products'] as $key => $value) {
-		$product = $products->getProduct($key);
+		$product = Product::getProduct($key);
 		$viewProducts[$product->getName()] = $value;
 	}
     $viewOrderInfo->assign('products', $viewProducts);

@@ -3,11 +3,12 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Models/Product.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\Product as Product;
 
 $products = Product::getProducts();
 if (!empty($_GET['id'])) {
-    $product = $products->getProduct($_GET['id']);
+    $product = Product::getProduct($_GET['id']);
     if (empty($_SESSION['products'])) {
         $_SESSION['products'][$product->getId()] = 1;
         ?>

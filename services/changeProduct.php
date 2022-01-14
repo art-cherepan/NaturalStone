@@ -3,8 +3,9 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Uploader.php';
-require_once __DIR__ . '/../classes/Models/Product.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Uploader as Uploader;
+use \App\Models\Product as Product;
 
 if (empty($_POST['id'])) {
     echo 'Не передан идентификатор товара';

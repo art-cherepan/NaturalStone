@@ -11,9 +11,11 @@ if (!empty($_SESSION['userName'])) {
 } else { ?>
     <div class="msg alert alert-danger" role="alert"><p>У вас нет прав!</p><p><a href="/NaturalStone/index.php">На главную</a></p></div>;
 <?php }
-require_once __DIR__ . '/classes/View.php';
-require_once __DIR__ . '/classes/Models/Product.php';
-require_once __DIR__ . '/classes/Models/Service.php';
+
+require_once __DIR__ . '/autoload.php';
+use \App\Models\Product as Product;
+use \App\Models\Service as Service;
+use \App\View as View;
 
 $products = Product::getProducts();
 $services = Service::getServices();

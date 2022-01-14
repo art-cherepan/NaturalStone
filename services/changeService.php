@@ -4,8 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-require_once __DIR__ . '/../classes/Uploader.php';
-require_once __DIR__ . '/../classes/Models/Service.php';
+require_once __DIR__ . '/../autoload.php';
+use \App\Models\Service as Service;
 
 if (empty($_POST['id'])) {
     echo 'Не передан идентификатор услуги';

@@ -5,9 +5,9 @@ if (!isset($_SESSION)) {
 //    die;
 }
 
-require_once __DIR__ . '/classes/View.php';
-require_once __DIR__ . '/classes/Models/Product.php';
-require_once __DIR__ . '/classes/Models/Services.php';
+require_once __DIR__ . '/autoload.php';
+use \App\View as View;
+use \App\Models\Product as Product;
 
 $view = new View();
 if (!empty($_SESSION['products'])) {

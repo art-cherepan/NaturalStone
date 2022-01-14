@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class DB
 {
     protected $host;
@@ -15,7 +17,7 @@ class DB
         $this->dbname = $dbname;
         $this->login = $login;
         $this->password = $password;
-        $this->dbh = new PDO(
+        $this->dbh = new \PDO(
             'mysql:host=' . $this->host . ';dbname=' . $this->dbname, $this->login, $this->password
         );
     }

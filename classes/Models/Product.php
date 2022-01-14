@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../DB.php';
+//require_once __DIR__ . '/../DB.php';
+namespace App\Models;
+use \App\DB as DB;
 
 class Product
 {
